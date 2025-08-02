@@ -1,4 +1,5 @@
 import { test, expect, Page, Locator } from '@playwright/test';
+import { MainPage } from '../models/MainPage';
 
 interface Elements {
   locator: (page: Page) => Locator;
@@ -94,15 +95,14 @@ const elements: Elements[] = [
 
 test.describe('Тесты главной страницы', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://playwright.dev/');
+//    await page.goto('https://playwright.dev/');
   });
 
   test('Проверка отображения элементов навигации хедера', async ({ page }) => {
-    elements.forEach(({ locator, name }) => {
-      test.step(`Проверка отображения элемента ${name}`, async () => {
-        await expect(locator(page)).toBeVisible();
-      });
-    });
+    const mainPage = new MainPage(page)
+    await mainPage.openMainPage
+    await mainPage.chekElementsVisability
+
   });
 
   test('Проверка текста элементов навигации хедера', async ({ page }) => {
@@ -144,6 +144,26 @@ test.describe('Тесты главной страницы', () => {
   });
   })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
